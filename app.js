@@ -218,3 +218,7 @@ window.addEventListener('beforeunload', () => { cancelAnimationFrame(animationFr
 
 audio.volume = Number(volume.value);
 drawScope();
+
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {}));
+}

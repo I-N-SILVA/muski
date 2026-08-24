@@ -6,6 +6,8 @@ Muski is a private listening instrument for macOS and Windows. The public reposi
 
 Open the [Muski web preview](https://i-n-silva.github.io/muski/). It can play audio selected from your phone or computer without uploading it. The generated Muski loop provides an instant copyright-safe demonstration.
 
+On a supported mobile browser, use **Add to Home Screen** to install the preview as a lightweight PWA. The interface shell works offline after the first visit; selected audio remains temporary and device-local.
+
 The browser preview intentionally has no downloader, account, analytics, server, or permanent library access. Browsers may forget selected files when the tab closes.
 
 ## Desktop edition
