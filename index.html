@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#a8ff1f" />
+    <meta name="description" content="Try Muski in your browser. Play local audio without uploading it." />
+    <title>Muski — Local Web Player</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23a8ff1f'/%3E%3Cpath d='M13 48V16h9l10 12 10-12h9v32H40V32l-8 10-8-10v16H13Z' fill='%2311110f'/%3E%3Ccircle cx='52' cy='12' r='5' fill='%23ff5f46'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#player">Skip to player</a>
+
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Muski web player home">
+          <svg class="brand-mark" viewBox="0 0 96 96" role="img" aria-label="Muski needle M">
+            <rect x="4" y="4" width="88" height="88" rx="22" fill="#a8ff1f" stroke="currentColor" stroke-width="8" />
+            <path d="M22 69V27h11l15 18 15-18h11v42H61V48L48 63 35 48v21H22Z" fill="currentColor" />
+            <path d="M61 38 78 21" stroke="#ff5f46" stroke-width="6" stroke-linecap="round" />
+            <circle cx="79" cy="20" r="6" fill="#ff5f46" stroke="currentColor" stroke-width="4" />
+          </svg>
+          <span><strong>MUSKI</strong><small>WEB.PREVIEW_01</small></span>
+        </a>
+
+        <div class="topbar-actions">
+          <span class="privacy-pill"><i></i> LOCAL ONLY</span>
+          <a class="text-link" href="https://github.com/I-N-SILVA/muski/releases">DESKTOP APP ↗</a>
+        </div>
+      </header>
+
+      <main id="player" class="player-grid" tabindex="-1">
+        <section class="stage" aria-labelledby="now-title">
+          <div class="stage-copy">
+            <span class="eyebrow">NOW PLAYING / BROWSER DECK</span>
+            <h1 id="now-title">YOUR MUSIC.<br /><em>STAYS YOURS.</em></h1>
+            <p>Choose audio from this device. Muski plays it in your browser without uploading a byte.</p>
+          </div>
+
+          <div class="deck" data-playing="false">
+            <div class="record-wrap" aria-hidden="true">
+              <div class="record">
+                <div class="grooves"></div>
+                <div class="record-label"><span>M</span></div>
+              </div>
+              <div class="tonearm"><span></span></div>
+            </div>
+
+            <div class="track-readout">
+              <span id="track-number">NO. 00</span>
+              <div>
+                <h2 id="track-title">WAITING FOR A RECORD</h2>
+                <p id="track-artist">ADD LOCAL AUDIO OR TRY THE MUSKI LOOP</p>
+              </div>
+            </div>
+
+            <div class="timeline">
+              <span id="elapsed">00:00</span>
+              <input id="progress" type="range" min="0" max="1000" value="0" aria-label="Track position" />
+              <span id="duration">00:00</span>
+            </div>
+
+            <div class="transport" aria-label="Playback controls">
+              <button id="shuffle" class="icon-button small" type="button" aria-label="Toggle shuffle" aria-pressed="false">⤨</button>
+              <button id="previous" class="icon-button" type="button" aria-label="Previous track">◀|</button>
+              <button id="play" class="play-button" type="button" aria-label="Play">▶</button>
+              <button id="next" class="icon-button" type="button" aria-label="Next track">|▶</button>
+              <button id="mute" class="icon-button small" type="button" aria-label="Mute">VOL</button>
+            </div>
+
+            <div class="volume-row">
+              <span>OUTPUT</span>
+              <input id="volume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volume" />
+              <span id="volume-value">80%</span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="library" aria-labelledby="library-title">
+          <div class="library-header">
+            <div>
+              <span class="eyebrow">LOCAL_VAULT</span>
+              <h2 id="library-title">QUEUE</h2>
+            </div>
+            <span id="track-count" class="count">00</span>
+          </div>
+
+          <canvas id="scope" width="720" height="160" aria-label="Audio waveform visualizer"></canvas>
+
+          <div id="empty-state" class="empty-state">
+            <strong>DROP THE NEEDLE</strong>
+            <p>Pick songs from Files, Music downloads, or cloud storage available on this device.</p>
+          </div>
+
+          <ol id="track-list" class="track-list" aria-live="polite"></ol>
+
+          <div class="library-actions">
+            <label class="action primary" for="file-picker">+ ADD YOUR AUDIO</label>
+            <input id="file-picker" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.flac,.aac" multiple />
+            <button id="demo-track" class="action" type="button">▶ TRY MUSKI LOOP</button>
+          </div>
+
+          <div class="privacy-note">
+            <span>NO ACCOUNT</span><span>NO UPLOAD</span><span>NO TRACKING</span>
+            <p>Your browser may forget selected files when this tab closes. The desktop app adds a persistent library, lyrics, metadata, queues, and visualizers.</p>
+          </div>
+        </aside>
+      </main>
+
+      <footer>
+        <p>MUSKI // A PRIVATE LISTENING INSTRUMENT</p>
+        <div><a href="./PRIVACY.md">PRIVACY</a><a href="./SUPPORT.md">SUPPORT</a><a href="https://github.com/I-N-SILVA/muski">GITHUB</a></div>
+      </footer>
+    </div>
+
+    <audio id="audio" preload="metadata"></audio>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
